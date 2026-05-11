@@ -1,5 +1,3 @@
-
-// ===== vite.config.js =====
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -7,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    // Proxy: tự động chuyển /api → backend (tránh lỗi CORS khi dev)
+    // Proxy chỉ dùng khi dev local
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
