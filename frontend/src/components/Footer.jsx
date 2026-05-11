@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
-          © 2026 DANG_Air. Đồ án 1:Đồ án cơ sở N1.
+          © 2026 DANG_Air. Đồ án 1:Đồ án cơ sở N1.ND.
         </div>
       </div>
     </footer>
