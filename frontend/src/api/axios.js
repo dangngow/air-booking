@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Khi build production → dùng URL backend thật trên Render
-// Khi dev local      → dùng proxy '/api' → localhost:5000
+// Khi build production (Netlify/Render) → dùng VITE_API_URL
+// Khi dev local (npm run dev)           → dùng proxy /api → localhost:5000
 const BASE_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api`
   : '/api';
