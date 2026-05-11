@@ -22,10 +22,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Chỉ redirect về login khi đang ở trang cần auth (không phải trang login/register)
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      const publicPaths = ['/login', '/register'];
+      const isPublic = publicPaths.some(p => window.location.pathname.startsWith(p));
+      if (!isPublic) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
