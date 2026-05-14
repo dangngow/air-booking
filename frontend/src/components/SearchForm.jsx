@@ -90,7 +90,7 @@ function AirportSelect({ label, icon, name, value, onChange, options, placeholde
               placeholder="🔍 Tìm theo tên hoặc mã sân bay..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+className="w-full px-3 py-2 text-sm text-black placeholder-gray-400 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
             />
           </div>
 
