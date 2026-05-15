@@ -7,9 +7,13 @@ const Flight  = require('./models/Flight');
 const Booking = require('./models/Booking');
 
 // ── Helpers ──────────────────────────────────────────────────
-const BASE_MS = Date.UTC(2026, 4, 23, 0, 0, 0); // 23/5/2026 00:00 UTC
+// FIX 1: BASE_MS = 23/5/2026 00:00 giờ Việt Nam (ICT = UTC+7)
+//        tức là 22/5/2026 17:00:00 UTC
+const BASE_MS = Date.UTC(2026, 4, 22, 17, 0, 0);
+
+// FIX 1: Bỏ (h - 7), chỉ cộng h * 3600000 vì BASE_MS đã trừ 7h rồi
 const mkD = (dayOffset, h, m) =>
-  new Date(BASE_MS + dayOffset * 86400000 + (h - 7) * 3600000 + m * 60000);
+  new Date(BASE_MS + dayOffset * 86400000 + h * 3600000 + m * 60000);
 
 // Tháng 5: ngày 23-31
 const D5 = (day, h, m) => mkD(day - 23, h, m);
@@ -42,15 +46,14 @@ const AP = {
 };
 const ap = code => ({ ...AP[code], code });
 
-// f(số_hiệu, hãng, từ, đến, ngày, giờ, phút, thời_gian_bay_phút, eco, biz, ghế_eco, ghế_biz)
-const f = (num, airline, from, to, dep, h, m, dur, eco, biz, es=120, bs=16) => {
-  const depTime = new Date(dep.getTime());
-  // dep đã có ngày đúng (từ mkD), chỉ cần tính arrivalTime
+// FIX 2: Bỏ tham số h, m thừa — dep đã là Date đầy đủ từ D5()/D6()
+// f(số_hiệu, hãng, từ, đến, dep_date, thời_gian_bay_phút, eco, biz, ghế_eco, ghế_biz)
+const f = (num, airline, from, to, dep, dur, eco, biz, es=120, bs=16) => {
   const arrTime = new Date(dep.getTime() + dur * 60000);
   return {
     flightNumber: num, airline,
     from: ap(from), to: ap(to),
-    departureTime: depTime,
+    departureTime: dep,
     arrivalTime:   arrTime,
     price:  { economy: eco, business: biz },
     seats:  { economy: es,  business: bs  },
