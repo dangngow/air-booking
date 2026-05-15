@@ -74,17 +74,14 @@ function AirportSelect({ label, icon, name, value, onChange, options, placeholde
     setOpen(false);
   }, [name, onChange]);
 
-  // Xử lý gõ trong ô search
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
 
   const handleSearchKeyDown = (e) => {
-    // Bấm Enter → chọn kết quả đầu tiên
     if (e.key === 'Enter' && filtered.length > 0) {
       handleSelect(filtered[0].code);
     }
-    // Bấm Escape → đóng
     if (e.key === 'Escape') {
       setOpen(false);
       setSearch('');
@@ -151,6 +148,7 @@ function AirportSelect({ label, icon, name, value, onChange, options, placeholde
                 padding: '8px 12px',
                 fontSize: '13px',
                 color: '#111827',
+                caretColor: '#2563eb',
                 backgroundColor: '#ffffff',
                 border: '1px solid #d1d5db',
                 borderRadius: '8px',
